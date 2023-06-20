@@ -1,6 +1,6 @@
 # Simple-Calculator
 
-Please copy and paste this in your hooks --->Prepare-commit-msg and deleate .sample in the file name
+Please copy and paste this in your hookss --->Prepare-commit-msg and deleate .sample in the file name
 
 #!/bin/sh
 # #
