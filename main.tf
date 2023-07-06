@@ -1,21 +1,34 @@
-# We strongly recommend using the required_providers block to set the
-# Azure Provider source and version being used
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "=3.0.0"
-    }
-  }
-}
-
-# Configure the Microsoft Azure Provider
 provider "azurerm" {
   features {}
 }
 
-# Create a resource group
-resource "azurerm_resource_group" "example" {
-  name     = "example-resources"
-  location = "West Europe"
+resource "azurerm_resource_group" "default" {
+  name     = "container-registry-rg"
+  location = "East US 2"
+
+  tags = {
+    environment = "Production"
+  }
+}
+
+resource "azurerm_container_registry" "acr" {
+  name                = "kspcontainerregistry"
+  resource_group_name = azurerm_resource_group.default.name
+  location            = "East US 2"
+  sku                 = "Standard"
+  admin_enabled       = true
+}
+
+output "acr_login_server" {
+  value = azurerm_container_registry.acr.login_server
+}
+
+output "acr_admin_username" {
+  value     = azurerm_container_registry.acr.admin_username
+  sensitive = true
+}
+
+output "acr_admin_password" {
+  value     = azurerm_container_registry.acr.admin_password
+  sensitive = true
 }
