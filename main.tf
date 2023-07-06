@@ -33,7 +33,7 @@ resource "azurerm_resource_group" "rg" {
 
 # Create a container registery
 resource "azurerm_container_registry" "example" {
-  name                = "containerRegistry1"
+  name                = "ProjectContainerRegistry"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   sku                 = "Premium"
@@ -41,10 +41,10 @@ resource "azurerm_container_registry" "example" {
 
 # Create a kubernates cluster
 resource "azurerm_kubernetes_cluster" "example" {
-  name                = "example-aks1"
+  name                = "project-aks"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  dns_prefix          = "exampleaks1"
+  dns_prefix          = "projectaks"
 
   default_node_pool {
     name       = "default"
