@@ -5,8 +5,7 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "/terraform-azure/*"
+    
   pull_request:
     branches:
       - main
@@ -41,11 +40,10 @@ jobs:
   
     - name: terraform init
       run: terraform init
-      working-directory: ${{ env.ROOT_PATH }}
+      
 
     - name: terraform Plan
       run: terraform plan 
-      working-directory: ${{ env.ROOT_PATH }}
       
 
   terraform_apply:
@@ -69,17 +67,17 @@ jobs:
  
     - name: terraform Init
       run: terraform init
-      working-directory: ${{ env.ROOT_PATH }}
+      
 
     - name: terraform Init
       run: echo 'var -> ${{inputs.tf_destroy}}'
-      working-directory: ${{ env.ROOT_PATH }}
+      
 
       #github.ref == 'refs/heads/main' && github.event_name == 'push'
     - name: terraform Apply
       run: terraform apply -auto-approve
       if: ${{inputs.tf_destroy}} == false
-      working-directory: ${{ env.ROOT_PATH }}
+      
 
     # - name: terraform destroy
     #   run: terraform destroy -auto-approve
